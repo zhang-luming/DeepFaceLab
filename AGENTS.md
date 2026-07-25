@@ -1,5 +1,9 @@
 # AGENTS.md — DeepFaceLab
 
+## Git commits
+- **NEVER commit without explicit user approval.** Do not run `git add` + `git commit` unless the user has explicitly asked you to commit, reviewed the commit message, and confirmed it.
+- Before committing, present the proposed commit message and list of changed files for user review.
+
 ## Entrypoints
 - **`main.py`** (root) launches the FastAPI Web UI (`uv run python main.py`). It adds `engine/` to `sys.path` before the guard so that spawned child processes can still import engine modules.
 - **`engine/main.py`** is the original CLI entrypoint (`python engine/main.py <subcommand>`). Also workable standalone.

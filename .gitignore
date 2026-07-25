@@ -5,6 +5,8 @@
 !ui/**/
 !.vscode/
 !.vscode/**/
+!workspace/
+!workspace/**/
 !*.py
 !*.md
 !*.txt
