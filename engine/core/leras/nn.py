@@ -175,7 +175,7 @@ class nn():
     @staticmethod
     def getCurrentDeviceConfig():
         if nn.current_DeviceConfig is None:
-            nn.current_DeviceConfig = DeviceConfig.BestGPU()
+            nn.current_DeviceConfig = nn.DeviceConfig.BestGPU()
         return nn.current_DeviceConfig
 
     @staticmethod
