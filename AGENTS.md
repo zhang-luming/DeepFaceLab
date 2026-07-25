@@ -13,9 +13,8 @@
 - **`pyproject.toml`** — uv project config with all dependencies
 
 ## Package management
-- Use **uv** for virtual environment and dependencies: `uv venv` then `uv pip install -r engine/requirements-cuda.txt`
-- Or: `uv sync` (uses `pyproject.toml`). The toml lists core deps; run `uv pip install` for pinned versions from `engine/requirements-cuda.txt`.
-- Python >= 3.6 required (TF 2.4 constraint).
+- Use **uv** for virtual environment and dependencies: `uv sync` (single command, creates venv + installs all deps from lockfile).
+- Python 3.8 required (TF 2.4 constraint — `requires-python = ">=3.8,<3.9"` in `pyproject.toml`).
 
 ## Tech stack and constraints
 - **TensorFlow 2.4.0** (GPU), no Keras. `nn.initialize()` lazily imports TF after setting CUDA env vars — must be called before any TF import.

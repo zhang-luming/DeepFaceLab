@@ -2,7 +2,7 @@
 name = "deepfacelab"
 version = "1.0.0"
 description = "DeepFaceLab Web UI"
-requires-python = ">=3.6"
+requires-python = ">=3.8,<3.9"
 dependencies = [
     "tqdm",
     "numpy",
@@ -17,6 +17,14 @@ dependencies = [
     "fastapi",
     "uvicorn",
     "python-multipart",
+    "tensorflow-gpu==2.4.0",
+    "tf2onnx==1.9.3",
+    "protobuf<=3.20",
+    "typing-extensions>=3.10",
+]
+
+[tool.uv]
+override-dependencies = [
     "typing-extensions>=4.0",
 ]
 
