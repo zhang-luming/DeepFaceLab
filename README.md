@@ -1,237 +1,63 @@
-﻿<table align="center" border="0">
+﻿# DeepFaceLab - Web UI
 
-<tr><td colspan=2 align="center">
+在 [iperov/DeepFaceLab](https://github.com/iperov/DeepFaceLab) 基础上构建的 Web 界面版本。
 
-# DeepFaceLab  
+原始 DeepFaceLab 引擎完整保留在 `engine/` 目录中，依然支持命令行使用。本项目的目标是为其增加 Web 操作界面。
 
-<a href="https://arxiv.org/abs/2005.05535">
+## 项目结构
 
-<img src="https://static.arxiv.org/static/browse/0.3.0/images/icons/favicon.ico" width=14></img>
-https://arxiv.org/abs/2005.05535</a>
+```
+├── main.py           # Web UI 入口
+├── ui/               # FastAPI Web UI (app, api, static)
+├── engine/           # DeepFaceLab 原始源码
+│   ├── main.py       # 原始命令行入口
+│   ├── core/         # 神经网络库 (leras)、图像处理、多进程工具
+│   ├── models/       # 换脸模型 (SAEHD, AMP, Quick96, XSeg)
+│   └── ...
+└── pyproject.toml    # uv 项目配置
+```
 
-</td></tr>
-<tr><td colspan=2 align="center">
+## 快速开始
 
-<p align="center">
+### 环境要求
+- Python >= 3.6（完整引擎支持需要 <= 3.8）
+- NVIDIA GPU + CUDA（训练与推理）
+- [uv](https://docs.astral.sh/uv/) 包管理器
 
-![](doc/logo_tensorflow.png)
-![](doc/logo_cuda.png)
-![](doc/logo_directx.png)
+### 安装运行
 
-</p>
+```bash
+# 克隆并初始化环境
+git clone git@github.com:zhang-luming/DeepFaceLab.git
+cd DeepFaceLab
 
-DeepFaceLab is used by such popular youtube channels as
+# 创建虚拟环境并安装依赖
+uv sync
 
-|![](doc/tiktok_icon.png) [deeptomcruise](https://www.tiktok.com/@deeptomcruise)|![](doc/tiktok_icon.png) [1facerussia](https://www.tiktok.com/@1facerussia)|![](doc/tiktok_icon.png) [arnoldschwarzneggar](https://www.tiktok.com/@arnoldschwarzneggar)
-|---|---|---|
+# 启动 Web UI
+uv run python main.py
+```
 
-|![](doc/tiktok_icon.png) [mariahcareyathome?](https://www.tiktok.com/@mariahcareyathome?)|![](doc/tiktok_icon.png) [diepnep](https://www.tiktok.com/@diepnep)|![](doc/tiktok_icon.png) [mr__heisenberg](https://www.tiktok.com/@mr__heisenberg)|![](doc/tiktok_icon.png) [deepcaprio](https://www.tiktok.com/@deepcaprio)
-|---|---|---|---|
+浏览器访问 `http://localhost:8000`。
 
-|![](doc/youtube_icon.png) [VFXChris Ume](https://www.youtube.com/channel/UCGf4OlX_aTt8DlrgiH3jN3g/videos)|![](doc/youtube_icon.png) [Sham00k](https://www.youtube.com/channel/UCZXbWcv7fSZFTAZV4beckyw/videos)|
-|---|---|
+### 命令行使用（仅引擎）
 
-|![](doc/youtube_icon.png) [Collider videos](https://www.youtube.com/watch?v=A91P2qtPT54&list=PLayt6616lBclvOprvrC8qKGCO-mAhPRux)|![](doc/youtube_icon.png) [iFake](https://www.youtube.com/channel/UCC0lK2Zo2BMXX-k1Ks0r7dg/videos)|![](doc/youtube_icon.png) [NextFace](https://www.youtube.com/channel/UCFh3gL0a8BS21g-DHvXZEeQ/videos)|
-|---|---|---|
+原始 DeepFaceLab 命令行依旧可用：
 
-|![](doc/youtube_icon.png) [Futuring Machine](https://www.youtube.com/channel/UCC5BbFxqLQgfnWPhprmQLVg)|![](doc/youtube_icon.png) [RepresentUS](https://www.youtube.com/channel/UCRzgK52MmetD9aG8pDOID3g)|![](doc/youtube_icon.png) [Corridor Crew](https://www.youtube.com/c/corridorcrew/videos)|
-|---|---|---|
+```bash
+python engine/main.py extract --input-dir data_src --output-dir data_src/aligned
+python engine/main.py train --model SAEHD --model-dir model --training-data-src-dir data_src/aligned --training-data-dst-dir data_dst/aligned
+python engine/main.py merge --model SAEHD --model-dir model --input-dir data_dst --output-dir result --output-mask-dir result_mask
+```
 
-|![](doc/youtube_icon.png) [DeepFaker](https://www.youtube.com/channel/UCkHecfDTcSazNZSKPEhtPVQ)|![](doc/youtube_icon.png) [DeepFakes in movie](https://www.youtube.com/c/DeepFakesinmovie/videos)|
-|---|---|
+## 开发
 
-|![](doc/youtube_icon.png) [DeepFakeCreator](https://www.youtube.com/channel/UCkNFhcYNLQ5hr6A6lZ56mKA)|![](doc/youtube_icon.png) [Jarkan](https://www.youtube.com/user/Jarkancio/videos)|
-|---|---|
+```bash
+uv run python main.py          # 启动开发服务器
+```
 
-</td></tr>
+API 路由添加在 `ui/api/` 目录下，然后在 `ui/app.py` 中注册。
 
-<tr><td colspan=2 align="center">
+## 致谢
 
-# What can I do using DeepFaceLab?
-
-</td></tr>
-<tr><td colspan=2 align="center">
-
-## Replace the face
-
-<img src="doc/replace_the_face.jpg" align="center">
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-## De-age the face
-
-</td></tr>
-
-<tr><td align="center" width="50%">
-
-<img src="doc/deage_0_1.jpg" align="center">
-
-</td>
-<td align="center" width="50%">
-
-<img src="doc/deage_0_2.jpg" align="center">
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-![](doc/youtube_icon.png) https://www.youtube.com/watch?v=Ddx5B-84ebo
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-## Replace the head
-
-</td></tr>
-
-<tr><td align="center" width="50%">
-
-<img src="doc/head_replace_1_1.jpg" align="center">
-
-</td>
-<td align="center" width="50%">
-
-<img src="doc/head_replace_1_2.jpg" align="center">
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-![](doc/youtube_icon.png) https://www.youtube.com/watch?v=RTjgkhMugVw
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-# Native resolution progress
-
-</td></tr>
-<tr><td colspan=2 align="center">
-
-<img src="doc/deepfake_progress.png" align="center">
-
-</td></tr>
-<tr><td colspan=2 align="center">
-
-<img src="doc/make_everything_ok.png" align="center">
-
-Unfortunately, there is no "make everything ok" button in DeepFaceLab. You should spend time studying the workflow and growing your skills. A skill in programs such as *AfterEffects* or *Davinci Resolve* is also desirable.
-
-</td></tr>
-<tr><td colspan=2 align="center">
-
-## Mini tutorial
-
-<a href="https://www.youtube.com/watch?v=kOIMXt8KK8M">
-
-<img src="doc/mini_tutorial.jpg" align="center">
-
-</a>
-
-</td></tr>
-<tr><td colspan=2 align="center">
-
-## Releases
-
-</td></tr>
-
-<tr><td align="right">
-<a href="https://tinyurl.com/2p9cvt25">Windows (magnet link)</a>
-</td><td align="center">Last release. Use torrent client to download.</td></tr>
-
-<tr><td align="right">
-<a href="https://mega.nz/folder/Po0nGQrA#dbbttiNWojCt8jzD4xYaPw">Windows (Mega.nz)</a>
-</td><td align="center">Contains new and prev releases.</td></tr>
-
-<tr><td align="right">
-<a href="https://disk.yandex.ru/d/7i5XTKIKVg5UUg">Windows (yandex.ru)</a>
-</td><td align="center">Contains new and prev releases.</td></tr>
-
-<tr><td align="right">
-<a href="https://github.com/nagadit/DeepFaceLab_Linux">Linux (github)</a>
-</td><td align="center">by @nagadit</td></tr>
-
-<tr><td align="right">
-<a href="https://github.com/elemantalcode/dfl">CentOS Linux (github)</a>
-</td><td align="center">May be outdated. By @elemantalcode</td></tr>
-
-</table>
-
-<table align="center" border="0">
-
-<tr><td colspan=2 align="center">
-
-### Communication groups
-
-</td></tr>
-
-<tr><td align="right">
-<a href="https://discord.gg/rxa7h9M6rH">Discord</a>
-</td><td align="center">Official discord channel. English / Russian.</td></tr>
-
-<tr><td colspan=2 align="center">
-
-## Related works
-
-</td></tr>
-
-<tr><td align="right">
-<a href="https://github.com/iperov/DeepFaceLive">DeepFaceLive</a>
-</td><td align="center">Real-time face swap for PC streaming or video calls</td></tr>
-
-</td></tr>
-</table>
-
-<table align="center" border="0">
-
-<tr><td colspan=2 align="center">
-
-## How I can help the project?
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-### Star this repo
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-Register github account and push "Star" button.
-
-</td></tr>
-
-</table>
-
-<table align="center" border="0">
-<tr><td colspan=2 align="center">
-
-## Meme zone
-
-</td></tr>
-
-<tr><td align="center" width="50%">
-
-<img src="doc/meme1.jpg" align="center">
-
-</td>
-
-<td align="center" width="50%">
-
-<img src="doc/meme2.jpg" align="center">
-
-</td></tr>
-
-<tr><td colspan=2 align="center">
-
-<sub>#deepfacelab #faceswap #face-swap #deep-learning #deeplearning #deep-neural-networks #deepface #deep-face-swap #neural-networks #neural-nets #tensorflow #cuda #nvidia</sub>
-
-</td></tr>
-
-
-
-</table>
+基于 [DeepFaceLab](https://github.com/iperov/DeepFaceLab) (iperov) 构建。

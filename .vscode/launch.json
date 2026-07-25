@@ -1,26 +1,22 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [        
+    "configurations": [
         {
-            
-            "name": "DFL train TEST",
-            "subProcess": true,
-            "justMyCode": true,
-            "type": "python",
+            "name": "Web UI (dev)",
+            "type": "debugpy",
             "request": "launch",
-            "program": "${env:DFL_ROOT}\\main.py",
-            "python": "${env:PYTHONEXECUTABLE}",
-            "cwd": "${env:WORKSPACE}",
-            "console": "integratedTerminal",    
-            "args": ["train", 
-                     "--training-data-src-dir", "${env:WORKSPACE}\\data_src\\aligned",
-                     "--training-data-dst-dir",  "${env:WORKSPACE}\\data_dst\\aligned",
-                     "--model-dir", "${env:WORKSPACE}\\model",
-                     "--model", "TEST"
-                    ]
+            "module": "uvicorn",
+            "args": [
+                "ui.app:create_app",
+                "--reload",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000"
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/engine:${PYTHONPATH}"
+            }
         }
     ]
 }

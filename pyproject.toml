@@ -1,0 +1,24 @@
+[project]
+name = "deepfacelab"
+version = "1.0.0"
+description = "DeepFaceLab Web UI"
+requires-python = ">=3.6"
+dependencies = [
+    "tqdm",
+    "numpy",
+    "numexpr",
+    "h5py",
+    "opencv-python>=4.5.0",
+    "ffmpeg-python",
+    "scikit-image>=0.17.0",
+    "scipy>=1.5.0",
+    "colorama",
+    "pyqt5",
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "typing-extensions>=4.0",
+]
+
+[dependency-groups]
+dev = []
