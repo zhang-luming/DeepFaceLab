@@ -65,3 +65,6 @@ There are no tests, no linter config, no typechecker, no CI. The `.vscode/` laun
 - `nn.ArchitectBase` is registered at module-level (`nn.ArchiBase = ArchiBase` at the bottom of `archis/ArchiBase.py`). Always import via `nn.ArchiBase`, not directly.
 - Model files use the pattern `<model_name>_<ModelClass>_data.dat` and `<model_name>_<ModelClass>_archi.dat`.
 - The `--force-gpu-idxs` argument takes comma-separated integers (e.g., `0,1`), not a list.
+
+## Rapid development presets
+- `scripts/train_quick96.sh` — Quick96 minimal VRAM training with default workspace paths. Launch with `bash scripts/train_quick96.sh`.

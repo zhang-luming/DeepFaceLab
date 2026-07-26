@@ -24,6 +24,8 @@
 !*.yml
 !requirements*
 !Dockerfile*
+!scripts/
+!scripts/**/
 !*.sh
 !.gitkeep
 !uv.lock
