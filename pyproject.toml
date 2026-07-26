@@ -20,7 +20,14 @@ dependencies = [
     "tensorflow-gpu==2.4.0",
     "tf2onnx==1.9.3",
     "protobuf<=3.20",
-    "typing-extensions>=3.10",
+    "typing-extensions",
+    "nvidia-cuda-runtime-cu11",
+    "nvidia-cublas-cu11",
+    "nvidia-cufft-cu11",
+    "nvidia-curand-cu11",
+    "nvidia-cusolver-cu11",
+    "nvidia-cusparse-cu11",
+    "nvidia-cudnn-cu11==8.5.0.96",
 ]
 
 [tool.uv]

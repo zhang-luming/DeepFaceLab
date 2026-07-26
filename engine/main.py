@@ -3,6 +3,8 @@ if __name__ == "__main__":
     import multiprocessing
     multiprocessing.set_start_method("spawn")
 
+    import core.cuda_env
+    
     from core.leras import nn
     nn.initialize_main_env()
     import os
